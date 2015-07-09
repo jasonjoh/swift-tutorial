@@ -14,6 +14,7 @@
 		EB584F9C1B4C22F400578EDA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB584F9B1B4C22F400578EDA /* Images.xcassets */; };
 		EB584F9F1B4C22F400578EDA /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB584F9D1B4C22F400578EDA /* LaunchScreen.xib */; };
 		EB584FAB1B4C22F400578EDA /* swift_tutorialTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB584FAA1B4C22F400578EDA /* swift_tutorialTests.swift */; };
+		EBBF35DB1B4DC27D007E1900 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBF35DA1B4DC27D007E1900 /* AuthenticationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,8 @@
 		EB584FA41B4C22F400578EDA /* swift-tutorialTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "swift-tutorialTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB584FA91B4C22F400578EDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EB584FAA1B4C22F400578EDA /* swift_tutorialTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swift_tutorialTests.swift; sourceTree = "<group>"; };
+		EBBF35D91B4DB9BD007E1900 /* bridging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bridging.h; sourceTree = "<group>"; };
+		EBBF35DA1B4DC27D007E1900 /* AuthenticationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +110,7 @@
 				EB584F9B1B4C22F400578EDA /* Images.xcassets */,
 				EB584F9D1B4C22F400578EDA /* LaunchScreen.xib */,
 				EB584F921B4C22F400578EDA /* Supporting Files */,
+				EBBF35DA1B4DC27D007E1900 /* AuthenticationManager.swift */,
 			);
 			path = "swift-tutorial";
 			sourceTree = "<group>";
@@ -115,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				EB584F931B4C22F400578EDA /* Info.plist */,
+				EBBF35D91B4DB9BD007E1900 /* bridging.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -271,6 +276,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBBF35DB1B4DC27D007E1900 /* AuthenticationManager.swift in Sources */,
 				EB584F971B4C22F400578EDA /* ViewController.swift in Sources */,
 				EB584F951B4C22F400578EDA /* AppDelegate.swift in Sources */,
 			);
@@ -405,6 +411,7 @@
 				INFOPLIST_FILE = "swift-tutorial/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "swift-tutorial/bridging.h";
 			};
 			name = Debug;
 		};
@@ -416,6 +423,7 @@
 				INFOPLIST_FILE = "swift-tutorial/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "swift-tutorial/bridging.h";
 			};
 			name = Release;
 		};
