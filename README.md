@@ -393,3 +393,16 @@ Select the main view controller in the document outline. Select the **Connection
 Re-run the app. After tapping the **Log in** button and logging in, you should see a table of messages.
 
 ![The sample app displaying messages.](https://raw.githubusercontent.com/jasonjoh/swift-tutorial/master/readme-images/final-result.png)
+
+## Next Steps ##
+
+Now that you've created a working sample, you may want to learn more about the [capabilities of the Mail API](https://msdn.microsoft.com/office/office365/APi/mail-rest-operations). If your sample isn't working, and you want to compare, you can download the end result of this tutorial from [GitHub](https://github.com/jasonjoh/swift-tutorial).
+
+## Copyright ##
+
+Copyright (c) Microsoft. All rights reserved.
+
+----------
+Connect with me on Twitter [@JasonJohMSFT](https://twitter.com/JasonJohMSFT)
+
+Follow the [Exchange Dev Blog](http://blogs.msdn.com/b/exchangedev/)
