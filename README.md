@@ -49,7 +49,9 @@ Finally, add a bridging header to enable use of the dependencies from Swift code
 
 Open the **bridging.h** file and add the following lines 
 
-	SOMETHING HERE
+	#import <ADALiOS/ADAL.h>
+	#import <orc/orc.h>
+	#import <outlook_services/outlook_services.h>
 	
 Select the **swift-tutorial** project in the Project navigator, then select the **Build Settings** tab. In the **Swift Compiler - Code Generation** section, set the value of the **Objective-C Bridging Header** setting to `bridging.h`.
 
@@ -233,3 +235,161 @@ Copy the entire value of the token and head over to http://jwt.calebb.net/. If y
 Once you're convinced that the token is what it should be, let's move on to using the Mail API.
 
 ## Using the Mail API ##
+
+Switch back to **ViewController.swift** and add a new function `getMessages`.
+
+### `getMessages` function in `ViewController.swift` ###
+
+    func getMessages(dependencyResolver: ADALDependencyResolver) {
+        var apiEndpoint = "https://outlook.office365.com/api/v1.0"
+        var client = MSOutlookClient(url: apiEndpoint, dependencyResolver: dependencyResolver)
+		
+        // Select at most 10 messages (.top(10))
+        // Return only the subject, date/time received, and from fields (.select())
+        // Sort by date/time received, newest first (.orderBy())
+        client.me.messages.top(10).select("Subject,DateTimeReceived,From").orderBy("DateTimeReceived DESC").readWithCallback({
+            (messages: [AnyObject]!, error: MSOrcError!) -> Void in
+            dispatch_async(dispatch_get_main_queue(), {
+                () -> Void in
+                
+                for msg in messages {
+                    var olMsg: MSOutlookMessage = msg as! MSOutlookMessage
+                    NSLog(olMsg.Subject)
+                }
+            })
+        })
+    }
+	
+Update the `loginButtonTapped` function to call `getMessages` after a successful login.
+
+### Updated `loginButtonTapped` function in `ViewController.swift` ###
+
+    @IBAction func logInButtonTapped(sender : AnyObject) {
+        var authMgr = AuthenticationManager.sharedInstance
+        
+        if (loggedIn){
+            // Logout and change the button to read "Log in"
+            authMgr.logout()
+            self.logInButton.setTitle("Log in", forState: UIControlState.Normal)
+            self.loggedIn = false
+        }
+        else {
+            // Attempt to get a token
+            authMgr.getToken() {
+                (authenticated: Bool, token: String) -> Void in
+                
+                if (authenticated) {
+                    // Change the button to read "Log out"
+                    NSLog("Authentication successful, token: %@", token)
+                    self.logInButton.setTitle("Log out", forState: UIControlState.Normal)
+                    self.loggedIn = true
+					
+                    // Get messages
+                    // Pass in the ADALDependencyResolve from the AuthenticationManager
+                    self.getMessages(authMgr.dependencyResolver)
+                    
+                }
+                else {
+                    NSLog("Authentication failed: %@", token)
+                }
+            }
+        }
+    }
+	
+Restart the app. After you tap the **Log in** button, you should see a list of message subjects appear in the output window.
+
+IMAGE HERE
+
+## Displaying the results ##
+
+Let's add a table view to our app to display the list of messages. First, add two new properties to the `ViewController` class in **ViewController.swift**.
+
+	@IBOutlet var msgTable: UITableView!
+	var messages = NSArray()
+	
+`msgTable` is the table view, and `messages` will hold the list of messages retrieved via the Mail API.
+
+Add the following line to the `viewDidLoad` function:
+
+	self.msgTable.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
+
+Next we need to add a couple of protocols to the `ViewController` class to allow it to interact with and update the table view. Change the following line:
+
+	class ViewController: UIViewController {
+	
+To this:
+
+	class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+	
+Now add the following functions to the `ViewController` class to implement the new protocols.
+
+	// Called when loading data to see how many rows to render
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // Return the number of messages
+        return self.messages.count
+    }
+    
+	// Called to render each row in the table
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        var cell:UITableViewCell = self.msgTable.dequeueReusableCellWithIdentifier("cell") as! UITableViewCell
+        
+        // Get the message from the array and cast to a MSOutlookMessage object
+        var outlookMessage : MSOutlookMessage = self.messages.objectAtIndex(indexPath.row) as! MSOutlookMessage
+        
+        // Format the received date/time
+        var formatter = NSDateFormatter()
+        formatter.timeStyle = NSDateFormatterStyle.ShortStyle
+        formatter.dateStyle = NSDateFormatterStyle.ShortStyle
+        var received = formatter.stringFromDate(outlookMessage.DateTimeReceived)
+        
+        // Setting to 0 should allow the line to wrap to multiple lines
+        cell.textLabel?.numberOfLines = 0
+        cell.textLabel?.text = String(format: "%@ From: %@ - %@", received, outlookMessage.From.EmailAddress.Name, outlookMessage.Subject)
+        
+        return cell
+    }
+    
+	// Empty function
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+    }
+	
+Update the `getMessages` function to save the returned messages into the `messages` class property and call `reloadData` on the table view.
+
+### Updated `getMessages` function in **ViewController.swift** ##
+
+    func getMessages(dependencyResolver: ADALDependencyResolver) {
+        var apiEndpoint = "https://outlook.office365.com/api/v1.0"
+        var client = MSOutlookClient(url: apiEndpoint, dependencyResolver: dependencyResolver)
+        
+        // Select at most 10 messages (.top(10))
+        // Return only the subject, date/time received, and from fields (.select())
+        // Sort by date/time received, newest first (.orderBy())
+        client.me.messages.top(10).select("Subject,DateTimeReceived,From").orderBy("DateTimeReceived DESC").readWithCallback({
+            (messages: [AnyObject]!, error: MSOrcError!) -> Void in
+            dispatch_async(dispatch_get_main_queue(), {
+                () -> Void in
+                
+                for msg in messages {
+                    var olMsg: MSOutlookMessage = msg as! MSOutlookMessage
+                    NSLog(olMsg.Subject)
+                }
+                
+                // Save the results and refresh the table view
+                self.messages = messages
+                self.msgTable.reloadData()
+            })
+        })
+    }
+	
+Switch to **Main.storyboard**. In the Object library, locate **Table View**. Drag **Table View** onto the main view controller.
+
+IMAGE HERE
+
+Select the main view controller in the document outline. Select the **Connections inspector** tab on the right-hand side. Under **Outlets**, you should see `msgTable`. Drag the small circle next to it onto the table view you added to the main view controller. Repeat for `dataSource` and `delegate` under **Referencing Outlets**. When done, your **Connections inspector** should look like the following.
+
+IMAGE HERE
+	
+Re-run the app. After tapping the **Log in** button and logging in, you should see a table of messages.
+
+IMAGE HERE

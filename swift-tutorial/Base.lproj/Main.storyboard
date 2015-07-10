@@ -26,16 +26,29 @@
                                     <action selector="logInButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Lmf-2i-VPw"/>
                                 </connections>
                             </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="S9o-4J-9Bv">
+                                <rect key="frame" x="16" y="90" width="568" height="502"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="LcB-45-IEN"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="vkL-Mh-FD4"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="S9o-4J-9Bv" firstAttribute="leading" secondItem="LGK-3L-0Sd" secondAttribute="leading" id="0au-7G-2wU"/>
                             <constraint firstItem="LGK-3L-0Sd" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="H3u-Ir-GMR"/>
                             <constraint firstItem="LGK-3L-0Sd" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="KMw-64-d2l"/>
+                            <constraint firstItem="S9o-4J-9Bv" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="26" id="S0L-9X-OhF"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="S9o-4J-9Bv" secondAttribute="bottom" constant="8" symbolic="YES" id="b5C-97-xqa"/>
+                            <constraint firstItem="S9o-4J-9Bv" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="dBg-sa-31Z"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Swift Tutorial" id="M4B-LF-3UQ"/>
                     <connections>
                         <outlet property="logInButton" destination="LGK-3L-0Sd" id="ZCA-sq-phX"/>
+                        <outlet property="msgTable" destination="S9o-4J-9Bv" id="llP-Uo-kYu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
