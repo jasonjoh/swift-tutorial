@@ -13,11 +13,11 @@ This guide assumes:
 
 Let's dive right in! Open Xcode, and on the **File** menu, choose **New** then **Project**. In the left-hand pane, choose **Application** under **iOS**, then choose **Single View Application**. Click **Next**.
 
-IMAGE HERE
+![Select the Single View Application template.](https://raw.githubusercontent.com/jasonjoh/swift-tutorial/master/readme-images/select-template.png)
 
 Enter `swift-tutorial` for **Product Name**, `Swift` for **Language**, and `Universal` for **Devices**, then click **Next**.
 
-IMAGE HERE
+![Choose options for your new project.](https://raw.githubusercontent.com/jasonjoh/swift-tutorial/master/readme-images/new-project-options.png)
 
 Choose a location for the project and click **Create**. Once Xcode finishes creating the project, close Xcode.
 
@@ -55,7 +55,7 @@ Open the **bridging.h** file and add the following lines
 	
 Select the **swift-tutorial** project in the Project navigator, then select the **Build Settings** tab. In the **Swift Compiler - Code Generation** section, set the value of the **Objective-C Bridging Header** setting to `bridging.h`.
 
-IMAGE HERE
+![Configure a bridging header in Build Settings.](https://raw.githubusercontent.com/jasonjoh/swift-tutorial/master/readme-images/bridging-header.png)
 
 ## Designing the app ##
 
@@ -63,13 +63,13 @@ The app itself will be fairly simple. Since it's a single-page app, we'll keep i
 
 In the Project navigator, expand **swift-tutorial**->**swift-tutorial**, then select **Main.storyboard**. In the document outline, expand **View Controller Scene**, then select **View Controller**.
 
-IMAGE HERE
+![Select the View Controller in the document outline.](https://raw.githubusercontent.com/jasonjoh/swift-tutorial/master/readme-images/storyboard-view-selected.png)
 
 On the **Editor** menu, choose **Embed In**, then **Navigation Controller**. A new item named **Navigation Item** should appear in the document outline underneath **View Controller**. Select this item, then double-click the highlighted navigation bar and enter the text `Swift Tutorial`.
 
 In the **Object Library** (bottom-right corner), find **Button**. Drag **Button** onto the visual representation of the view. Double-click the button and set the text to `Log In`.
 
-IMAGE HERE
+![Add a Log In button.](https://raw.githubusercontent.com/jasonjoh/swift-tutorial/master/readme-images/navigation-added.png)
 
 Now select **ViewController.swift** in the Project navigator. Add a new property to the `ViewController` class, right before the `viewDidLoad` function:
 
@@ -83,13 +83,13 @@ Then add a new method to the class:
 	
 In **Main.storyboard**, select **View Controller** in the document outline. Select the **Connections inspector** tab on the right-hand side.
 
-IMAGE HERE
+![Select the Connections inspector.](https://raw.githubusercontent.com/jasonjoh/swift-tutorial/master/readme-images/login-button.png)
 	
 Under **Outlets**, you should see the `loginButton` property we added to the view controller earlier. Drag the small circle next to this property onto the button on the view.
 
 Under **Received Actions**, you should see the `logInButtonTapped` method we added to the view controller earlier. Drag the small circle next to this method onto the button on the view. In the pop up menu that appears, select **Touch Up Inside**. The **Connections inspector** section should look like this once you are done.
 
-IMAGE HERE
+![The Connections inspector with the login button outlet connected.](https://raw.githubusercontent.com/jasonjoh/swift-tutorial/master/readme-images/login-button-connected.png)
 	
 In **Main.storyboard**, select **View** in the document outline. On the **Editor** menu, select **Resolve Auto Layout Issues**, then **Add Missing Constraints**.
 
@@ -106,7 +106,7 @@ Go to https://dev.outlook.com/appregistration. Sign in with your Office 365 acco
 - Redirect URI: http://localhost/swift-tutorial
 - APIs to access: Read mail
 
-IMAGE HERE
+![Register the app using the Outlook Dev Portal App Registration portal.](https://raw.githubusercontent.com/jasonjoh/swift-tutorial/master/readme-images/app-registration.png)
 
 Click **Register App** and copy the client ID that is generated.
 
@@ -228,7 +228,7 @@ Now let's add code to the empty `logInButtonTapped` function.
 	
 Run the app. Once the app loads in the iOS Simulator, tap the **Log in** button to login. After logging in, you should see a token printed to the output window, and the button should now say **Log out**.
 
-IMAGE HERE
+![The access token displayed in the output window in Xcode.](https://raw.githubusercontent.com/jasonjoh/swift-tutorial/master/readme-images/token-output.png)
 
 Copy the entire value of the token and head over to http://jwt.calebb.net/. If you paste that value in, you should see a JSON representation of an access token. For details and alternative parsers, see [Validating your Office 365 Access Token](https://github.com/jasonjoh/office365-azure-guides/blob/master/ValidatingYourToken.md).
 
@@ -298,7 +298,7 @@ Update the `loginButtonTapped` function to call `getMessages` after a successful
 	
 Restart the app. After you tap the **Log in** button, you should see a list of message subjects appear in the output window.
 
-IMAGE HERE
+![Message subjects displayed in the output window in Xcode.](https://raw.githubusercontent.com/jasonjoh/swift-tutorial/master/readme-images/subjects-output.png)
 
 ## Displaying the results ##
 
@@ -384,12 +384,12 @@ Update the `getMessages` function to save the returned messages into the `messag
 	
 Switch to **Main.storyboard**. In the Object library, locate **Table View**. Drag **Table View** onto the main view controller.
 
-IMAGE HERE
+![Add a table view to the view in the main storyboard.](https://raw.githubusercontent.com/jasonjoh/swift-tutorial/master/readme-images/table-view.png)
 
 Select the main view controller in the document outline. Select the **Connections inspector** tab on the right-hand side. Under **Outlets**, you should see `msgTable`. Drag the small circle next to it onto the table view you added to the main view controller. Repeat for `dataSource` and `delegate` under **Referencing Outlets**. When done, your **Connections inspector** should look like the following.
 
-IMAGE HERE
+![Connect the table view to the msgTable variable in the view controller.](https://raw.githubusercontent.com/jasonjoh/swift-tutorial/master/readme-images/table-view-connected.png)
 	
 Re-run the app. After tapping the **Log in** button and logging in, you should see a table of messages.
 
-IMAGE HERE
+![The sample app displaying messages.](https://raw.githubusercontent.com/jasonjoh/swift-tutorial/master/readme-images/final-result.png)
