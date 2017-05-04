@@ -2,12 +2,12 @@
 //  swift_tutorialTests.swift
 //  swift-tutorialTests
 //
-//  Created by Jason Johnston on 7/7/15.
-//  Copyright (c) 2015 Jason Johnston. All rights reserved.
+//  Created by Jason Johnston on 4/3/17.
+//  Copyright © 2017 Microsoft. All rights reserved.
 //
 
-import UIKit
 import XCTest
+@testable import swift_tutorial
 
 class swift_tutorialTests: XCTestCase {
     
@@ -23,12 +23,12 @@ class swift_tutorialTests: XCTestCase {
     
     func testExample() {
         // This is an example of a functional test case.
-        XCTAssert(true, "Pass")
+        // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
     
     func testPerformanceExample() {
         // This is an example of a performance test case.
-        self.measureBlock() {
+        self.measure {
             // Put the code you want to measure the time of here.
         }
     }
