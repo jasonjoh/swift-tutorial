@@ -1,6 +1,6 @@
 # Getting Started with the Outlook Mail API and Swift #
  
-This sample app is the result of following the tutorial at [https://dev.outlook.com/restapi/tutorial/ios](https://dev.outlook.com/restapi/tutorial/ios). If you follow that tutorial, you should come up with something fairly close to the code in this repository.
+This sample app is the result of following the tutorial at [https://docs.microsoft.com/en-us/outlook/rest/ios-tutorial](https://docs.microsoft.com/en-us/outlook/rest/ios-tutorial). If you follow that tutorial, you should come up with something fairly close to the code in this repository.
  
 ## Running the sample
  
@@ -15,17 +15,17 @@ This guide assumes:
  
 ### Register the app
  
-Head over to https://apps.dev.microsoft.com to quickly get a client ID and secret. Using the sign in buttons, sign in with either your Microsoft account (Outlook.com), or your work or school account (Office 365).
- 
-![The Application Registration Portal Sign In Page](readme-images/sign-in.PNG)
+Head over to https://apps.dev.microsoft.com to quickly get a client ID and secret. Sign in with either your Microsoft account (Outlook.com), or your work or school account (Office 365).
  
 Once you're signed in, click the **Add an app** button. Enter `swift-tutorial` for the name and click **Create application**.
+
+> **Note:** If you don't see **Add an app**, you may need to click the **Skip quickstart** link.
  
-Locate the **Platforms** section, and click **Add Platform**. Choose **Mobile**, then click **Save** to complete the registration. Copy the **Application Id**.
+Locate the **Platforms** section, and click **Add Platform**. Choose **Native Application**, then click **Save** to complete the registration. Copy the **Application Id**.
  
 Here's what the details of your app registration should look like when you are done.
  
-![The completed registration properties.](readme-images/ruby-tutorial.PNG)
+![The completed registration properties.](readme-images/app-registration.PNG)
  
 Once this is complete you should have an application ID. Replace the `YOUR APP ID HERE` placeholder in [OutlookService.swift](swift-tutorial/OutlookService.swift) with this value and save your changes.
  
