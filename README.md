@@ -21,7 +21,7 @@ Once you're signed in, click the **Add an app** button. Enter `swift-tutorial` f
 
 > **Note:** If you don't see **Add an app**, you may need to click the **Skip quickstart** link.
  
-Locate the **Platforms** section, and click **Add Platform**. Choose **Native Application**, then click **Save** to complete the registration. Copy the **Application Id**.
+Locate the **Platforms** section, and click **Add Platform**. Choose **Native Application**. Replace the value for **Custom Redirect URIs** with `swift-tutorial://oauth2/callback`, then click **Save** to complete the registration. Copy the **Application Id**.
  
 Here's what the details of your app registration should look like when you are done.
  

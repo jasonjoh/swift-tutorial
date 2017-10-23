@@ -18,7 +18,7 @@ class OutlookService {
         "authorize_uri": "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
         "token_uri": "https://login.microsoftonline.com/common/oauth2/v2.0/token",
         "scope": "openid profile offline_access User.Read Mail.Read Calendars.Read Contacts.Read",
-        "redirect_uris": ["urn:ietf:wg:oauth:2.0:oob"],
+        "redirect_uris": ["swift-tutorial://oauth2/callback"],
         "verbose": true,
         ] as OAuth2JSON
     
@@ -32,7 +32,7 @@ class OutlookService {
     private init() {
         oauth2 = OAuth2CodeGrant(settings: OutlookService.oauth2Settings)
         oauth2.authConfig.authorizeEmbedded = true
-        oauth2.authConfig.ui.useSafariView = false
+        //oauth2.authConfig.ui.useSafariView = false
         
         userEmail = ""
     }
@@ -45,6 +45,10 @@ class OutlookService {
         get {
             return oauth2.hasUnexpiredAccessToken() || oauth2.refreshToken != nil
         }
+    }
+    
+    func handleOAuthCallback(url: URL) -> Void {
+        oauth2.handleRedirectURL(url)
     }
     
     func login(from: AnyObject, callback: @escaping (String?) -> Void) -> Void {
