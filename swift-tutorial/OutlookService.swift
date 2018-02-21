@@ -89,11 +89,6 @@ class OutlookService {
         
         var req = oauth2.request(forURL: apiUrl)
         req.addValue("application/json", forHTTPHeaderField: "Accept")
-        if (!userEmail.isEmpty) {
-            // Add X-AnchorMailbox header to optimize
-            // API routing
-            req.addValue(userEmail, forHTTPHeaderField: "X-AnchorMailbox")
-        }
         
         let loader = OAuth2DataLoader(oauth2: oauth2)
         
