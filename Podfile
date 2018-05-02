@@ -6,8 +6,8 @@ target 'swift-tutorial' do
   use_frameworks!
 
   # Pods for swift-tutorial
-  pod 'p2.OAuth2', '~> 3.0.3'
-  pod 'SwiftyJSON', '~> 3.1.4'
+  pod 'p2.OAuth2', '~> 4.0.1'
+  pod 'SwiftyJSON', '~> 4.1.0'
 
   target 'swift-tutorialTests' do
     inherit! :search_paths
