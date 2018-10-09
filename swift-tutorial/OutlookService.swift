@@ -123,7 +123,11 @@ class OutlookService {
             makeApiCall(api: "/v1.0/me") {
                 result in
                 if let unwrappedResult = result {
-                    let email = unwrappedResult["mail"].stringValue
+                    var email = unwrappedResult["mail"].stringValue
+                    if (email.isEmpty) {
+                        // Fallback to userPrincipalName ONLY if mail is empty
+                        email = unwrappedResult["userPrincipalName"].stringValue
+                    }
                     self.userEmail = email
                     callback(email)
                 } else {
